@@ -19,17 +19,17 @@ namespace ULL
         public string Name { get; private set; }
 
         /// <summary>
-        /// Returns count of Localization Texts.
+        /// Returns count of Localization entries.
         /// </summary>
         public int EntriesCount
         {
             get
             {
-                return localizationTextsList.Count;
+                return localizationEntriesList.Count;
             }
         }
 
-        private List<LocalizationText> localizationTextsList;
+        private List<LocalizationEntry> localizationEntriesList;
         private string fileFullPath;
         private bool loaded = false;
 
@@ -41,21 +41,21 @@ namespace ULL
         }
 
         /// <summary>
-        /// Finds and returns Localization Text with specified id. Throws Exception when no text was found, or Localization is unloaded.
+        /// Finds and returns text of Localization Entry with specified id. Throws Exception when no text was found, or Localization is unloaded.
         /// </summary>
-        /// <param name="id">Id of Localization Text to looking for.</param>
+        /// <param name="id">Id of Localization Entry to looking for.</param>
         /// <returns></returns>
-        public LocalizationText GetLocalizationText(string id)
+        public string GetLocalizationEntry(string id)
         {
             if (loaded)
             {
-                foreach (LocalizationText text in localizationTextsList)
+                foreach (LocalizationEntry text in localizationEntriesList)
                 {
                     if (text.Id == id)
-                        return text;
+                        return text.Text;
                 }
 
-                throw new Exception("Localization text not found.");
+                throw new Exception("Localization enrty not found.");
             }
             else
                 throw new Exception("Localization file is not loaded.");
@@ -68,7 +68,7 @@ namespace ULL
         {
             try
             {
-                localizationTextsList = LangFileReader.LoadLocalizationText(fileFullPath);
+                localizationEntriesList = LangFileReader.LoadLocalizationText(fileFullPath);
                 loaded = true;
             }
             catch(Exception e)

@@ -43,7 +43,7 @@
     <Compile Include="LangFileReader.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="LocalizationListGenerator.cs" />
-    <Compile Include="LocalizationText.cs" />
+    <Compile Include="LocalizationEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

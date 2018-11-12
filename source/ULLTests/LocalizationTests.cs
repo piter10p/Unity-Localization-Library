@@ -22,14 +22,11 @@ namespace ULL.Tests
                 localization.Load();
                 Assert.AreEqual(2, localization.EntriesCount);
 
-                LocalizationText entry1 = localization.GetLocalizationText("entry1");
-                LocalizationText entry2 = localization.GetLocalizationText("entry2");
+                string entry1 = localization.GetLocalizationEntry("entry1");
+                string entry2 = localization.GetLocalizationEntry("entry2");
 
-                Assert.AreEqual("entry1", entry1.Id);
-                Assert.AreEqual("Entry 1 test text.", entry1.Text);
-
-                Assert.AreEqual("entry2", entry2.Id);
-                Assert.AreEqual("More  test text, but for entry 2.", entry2.Text);
+                Assert.AreEqual("Entry 1 test text.", entry1);
+                Assert.AreEqual("More  test text, but for entry 2.", entry2);
             }
             catch(Exception e)
             {

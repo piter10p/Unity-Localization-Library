@@ -22,9 +22,9 @@ namespace ULL
             }
         }
 
-        public static List<LocalizationText> LoadLocalizationText(string fullFilePath)
+        public static List<LocalizationEntry> LoadLocalizationText(string fullFilePath)
         {
-            List<LocalizationText> localizationTextsList = new List<LocalizationText>();
+            List<LocalizationEntry> localizationTextsList = new List<LocalizationEntry>();
 
             try
             {
@@ -39,7 +39,7 @@ namespace ULL
                     {
                         try
                         {
-                            LocalizationText text = ReadLine(line);
+                            LocalizationEntry text = ReadLine(line);
                             localizationTextsList.Add(text);
                         }
                         catch { }
@@ -80,7 +80,7 @@ namespace ULL
             return false;
         }
 
-        private static LocalizationText ReadLine(string line)
+        private static LocalizationEntry ReadLine(string line)
         {
             try
             {
@@ -88,11 +88,11 @@ namespace ULL
                 string id = lineSplitted[0];
                 string text = lineSplitted[1];
 
-                return new LocalizationText(id, text);
+                return new LocalizationEntry(id, text);
             }
             catch(Exception e)
             {
-                throw new Exception("Problem with reading localization line.", e);
+                throw new Exception("Problem with reading localization file entry.", e);
             }
         }
     }

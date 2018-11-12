@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ULL
 {
-    public class LocalizationText
+    class LocalizationEntry
     {
         public string Id { get; private set; }
         public string Text { get; private set; }
 
-        public LocalizationText(string id, string text)
+        public LocalizationEntry(string id, string text)
         {
             this.Id = id;
             this.Text = text;
