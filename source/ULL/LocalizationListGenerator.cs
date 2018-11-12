@@ -25,7 +25,7 @@ namespace ULL
         /// <summary>
         /// Returns next exception and deletes it.
         /// </summary>
-        public Exception GetNextException
+        public Exception NextException
         {
             get
             {
@@ -57,7 +57,7 @@ namespace ULL
                     }
                     catch(Exception e)
                     {
-
+                        readingExceptionsQueue.Enqueue(e);
                     }
                 }
 
