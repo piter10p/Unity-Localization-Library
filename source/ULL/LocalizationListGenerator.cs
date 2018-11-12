@@ -74,12 +74,9 @@ namespace ULL
             try
             {
                 string languageTag = fileName.Split('.')[0];//get filename without extension
-                string languageName;
+                string languageName = LangFileReader.LoadLanguageName(fileFullPath);
 
-                StreamReader streamReader = new StreamReader(fileFullPath);
-                languageName = streamReader.ReadLine();
-
-                return new Localization(languageTag, languageName);
+                return new Localization(languageTag, languageName, fileFullPath);
             }
             catch(Exception e)
             {
