@@ -18,13 +18,12 @@ namespace ULL
         /// </summary>
         public string Name { get; private set; }
 
-        private List<LocalizationText> localizationTextsList;
+        private List<LocalizationText> localizationTextsList = new List<LocalizationText>();
 
-        public Localization(string tag, string name, List<LocalizationText> localizationTextsList)
+        public Localization(string tag, string name)
         {
             this.Tag = tag;
             this.Name = name;
-            this.localizationTextsList = localizationTextsList;
         }
 
         /// <summary>
