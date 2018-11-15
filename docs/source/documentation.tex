@@ -1,0 +1,88 @@
+\documentclass[a4paper]{report}
+\title{Unity Localization Library Documentation}
+\author{Piotr Paszko}
+\date{2018}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{float}
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+\section{ULL General Description}
+Unity Localization Library (ULL) is a .NET library for handling localization files. A library was created specially for Unity, with does not have any localization support.
+
+\section{Language file}
+Language file contains:
+\begin{enumerate}
+\item Language tag.
+\item Language full name (for in-game displaying).
+\item Localized text with a key.
+\end{enumerate}
+
+\subsection{Language tag}
+A language tag is stored in file name:
+\begin{lstlisting}[language=XML]
+language_tag.lang
+\end{lstlisting}
+
+\subsection{Language full name}
+A language full name is stored in first line of language file.
+
+\subsection{Localized text with key}
+Every line after language name line have to contain a localized text with a key,
+created according to the pattern:
+
+\begin{lstlisting}[language=XML]
+key_name=localized_text
+\end{lstlisting}
+
+Key name and localized text can not have a "=" character inside of themselves. Every other characters are allowed.
+
+\subsection{Language file example}
+this is example of language file:
+\begin{lstlisting}[language=XML]
+file: en-EN.lang
+
+English (England)
+parrot=Parrot
+y_parrot=Yellow Parrot
+apartament=Flat
+\end{lstlisting}
+
+\section{Versioning}
+ULL uses this versioning system:
+
+major.minor.development stage.build
+
+\begin{enumerate}
+\item Major - major version number.
+\item Minor - minor version number.
+\item Development Stage - describes development stage of current minor version. Values meaning:
+\begin{enumerate}
+\item 0 - alpha,
+\item 1 - beta,
+\item 2 - release candidate,
+\item 3 - release version.
+\end{enumerate}
+\item Build - build version number.
+\end{enumerate}
+
+\section{Targeted platform}
+ULL is targeted for .NET 4.5.
+
+\chapter{API Documentation}
+Need to be write after tests.
+
+\chapter{Using examples}
+Need to be write after tests.
+
+\end{document}
