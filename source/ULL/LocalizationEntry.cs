@@ -8,12 +8,12 @@ namespace ULL
 {
     class LocalizationEntry
     {
-        public string Id { get; private set; }
+        public string Key { get; private set; }
         public string Text { get; private set; }
 
-        public LocalizationEntry(string id, string text)
+        public LocalizationEntry(string key, string text)
         {
-            this.Id = id;
+            this.Key = key;
             this.Text = text;
         }
     }

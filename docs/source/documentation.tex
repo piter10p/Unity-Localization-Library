@@ -8,7 +8,7 @@
 \usepackage{indentfirst}
 \usepackage{graphicx}
 \usepackage{float}
-\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
+\lstdefinestyle{sharpc}{language=[Sharp]C, rulecolor=\color{blue!80!black}}
 
 \begin{document}
 
@@ -80,9 +80,205 @@ major.minor.development stage.build
 ULL is targeted for .NET 4.5.
 
 \chapter{API Documentation}
-Need to be write after tests.
+\section{LocalizationListGenerator class}
+A class used for generation a list of available language files.
+
+\bigskip
+
+Caution!
+
+Class stores Exceptions handled during execution of GenerateLocalizationList() method in special queue. User can read it via NextException property.
+
+\bigskip
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Public methods}\\
+\hline
+Name & Arguments & Description\\
+\hline
+\begin{lstlisting}[style=sharpc]
+List<Localization>
+GenerateLocalizationList
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+string
+localizationsPath
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returns a list of unloaded
+Localization objects.
+\end{lstlisting}\\
+\hline
+\end{tabular}
+
+\bigskip
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Public properties}\\
+\hline
+Name & Get & Set\\
+\hline
+\begin{lstlisting}[style=sharpc]
+bool ExceptionExists
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returs true, if there's any Exception in
+queue.
+\end{lstlisting}&
+-\\
+\hline
+\begin{lstlisting}[style=sharpc]
+Exception NextException
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Dequeues next exception and returns it.
+\end{lstlisting}&
+-\\
+\hline
+\end{tabular}
+
+\section{Localization class}
+A class that contains data from localization file.
+
+\bigskip
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Public methods}\\
+\hline
+Name & Arguments & Description\\
+\hline
+\begin{lstlisting}[style=sharpc]
+string GetLocalizationEntry
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+string id
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returns a localization text
+identified by a key given in
+argument. Returns Exception if
+there's none localization with
+specified key, or localization
+is not loaded.
+\end{lstlisting}\\
+\hline
+\begin{lstlisting}[style=sharpc]
+void Load()
+\end{lstlisting}&
+-&
+\begin{lstlisting}[style=sharpc]
+Loads a localization from file.
+Returns Exception if loading
+failed.
+\end{lstlisting}\\
+\hline
+\end{tabular}
+
+\bigskip
+
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Public properties}\\
+\hline
+Name & Get & Set\\
+\hline
+\begin{lstlisting}[style=sharpc]
+string Tag
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returns language tag.
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+private
+\end{lstlisting}\\
+\hline
+\begin{lstlisting}[style=sharpc]
+string Name
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returns language full name.
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+private
+\end{lstlisting}\\
+\hline
+\begin{lstlisting}[style=sharpc]
+int EntriesCount
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+Returns number of localization texts stored.
+Throws Exception when localization is not
+loaded.
+\end{lstlisting}&
+\begin{lstlisting}[style=sharpc]
+private
+\end{lstlisting}\\
+\hline
+\end{tabular}
 
 \chapter{Using examples}
-Need to be write after tests.
+A basic example of using (without exception handling):
+
+\begin{lstlisting}[style=sharpc]
+using ULL;
+using System;
+using System.Collections;
+
+//Class for managing
+
+class LocalizationManager
+{
+	const string DefaultLanguageTag = "en-EN";
+	
+	List<Localizations> localizationsList;
+	Localization selectedLocalization;
+	
+	public void LoadLocalizationsList()
+	{
+		LocalizationListGenerator localizationListGenerator =
+		new LocalizationListGenerator();
+		
+		localizationsList = localizationListGenerator.
+		GenerateLocalizationList();
+			
+		while(localizationsList.ExceptionExists)
+		{
+			Exception e = localizationsList.NextException;
+			Log(e);
+		}
+	}
+	
+	public void LoadDefaultLocalization()
+	{
+		selectedLocalization = GetLocalization(DefaultLanguageTag);
+		selectedLocalization.Load();
+	}
+	
+	public string GetLocalizedText(string key)
+	{
+		return selectedLocalization.GetLocalizationEntry(key);
+	}
+	
+	private Localization GetLocalization(string tag)
+	{
+		foreach(Localization l in localizationsList)
+		{
+			if(l.Tag == tag)
+				return l;
+		}
+	}
+}
+
+//class using
+
+LocalizationManager manager = new LocalizationManager();
+manager.LoadLocalizationsList();
+manager.LoadDefaultLocalization();
+
+string someText = manager.GetLocalizedText("textKey");
+\end{lstlisting}
 
 \end{document}

@@ -25,7 +25,10 @@ namespace ULL
         {
             get
             {
-                return localizationEntriesList.Count;
+                if (loaded)
+                    return localizationEntriesList.Count;
+                else
+                    throw new Exception("Localization file is not loaded.");
             }
         }
 
@@ -43,15 +46,15 @@ namespace ULL
         /// <summary>
         /// Finds and returns text of Localization Entry with specified id. Throws Exception when no text was found, or Localization is unloaded.
         /// </summary>
-        /// <param name="id">Id of Localization Entry to looking for.</param>
+        /// <param name="key">Key of Localization Entry to looking for.</param>
         /// <returns></returns>
-        public string GetLocalizationEntry(string id)
+        public string GetLocalizationEntry(string key)
         {
             if (loaded)
             {
                 foreach (LocalizationEntry text in localizationEntriesList)
                 {
-                    if (text.Id == id)
+                    if (text.Key == key)
                         return text.Text;
                 }
 
